@@ -9,13 +9,7 @@ type Word = [Letter]
 -- | The state of the Hangman game. 
 data HangmanState = HangmanState Word (Int,Int) [Char]
 
-main :: IO ()
-main = do
-  hSetEcho stdin False
-  hSetBuffering stdin NoBuffering
-  hSetBuffering stdout NoBuffering
-  hangman "hello" 10
-
+-- | The start of the game.
 hangman :: String -> Int -> IO ()
 hangman word guesses = do
   let word' = fmap (\x -> Hidden x) word
@@ -25,6 +19,7 @@ hangman word guesses = do
    True -> putStrLn "You've won!"
    False -> putStrLn "You've lost!"
 
+-- | An iteration of the game.
 looper ::  StateT HangmanState IO (HangmanState, Bool)
 looper = do
   hs@(HangmanState word (guess,guesses) guessed) <- get
@@ -40,6 +35,7 @@ looper = do
        put hs'
        looper
 
+-- | Print the state of the game.
 showState :: HangmanState -> IO()
 showState state@(HangmanState word (guess, guesses) guessed) = do
   putStrLn $
@@ -57,19 +53,25 @@ letterToChar l = case l of
   Hidden x -> '_'
   Guessed x -> x
 
+-- | Transform a Hidden character into a Guessed character.
 checkGuess :: Char -> Letter -> Letter
 checkGuess c (Hidden x)
   | x == c = Guessed x
 checkGuess c x = x
-    
+
+-- | Determine if we've reached the end of the game.
 endGame :: Word -> (Int,Int) -> Bool
 endGame word (guess,guesses)
   | complete word = True
   | guess == guesses = True
   | otherwise = False
 
+
+-- | Determine if the word is completely guessed.
 complete :: Word -> Bool
-complete [] = True
-complete (x:xs) = case x of
-  Hidden x -> False
-  Guessed x -> complete xs
+complete = all isGuessed
+
+isGuessed :: Letter -> Bool
+isGuessed l = case l of
+                 Hidden x -> False
+                 Guessed x -> True
