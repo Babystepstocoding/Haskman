@@ -1,13 +1,18 @@
 module Main where
 
 import System.IO
+import System.Random
 import Control.Monad.Trans.State.Lazy
 import Control.Monad.IO.Class
 
+import qualified Words (list)
+
 -- | Represents if a character is discovered.
 data Letter = Hidden Char | Guessed Char
+
 -- | Represents a word made up of letters.
 type Word = [Letter]
+
 -- | The state of the Hangman game. 
 data HangmanState = HangmanState Word (Int,Int) [Char]
 
@@ -16,10 +21,10 @@ main = do
   hSetEcho stdin False
   hSetBuffering stdin NoBuffering
   hSetBuffering stdout NoBuffering
+  guesses <- getStdRandom (randomR (5,15))
+  wordIndex <- getStdRandom (randomR (0, (length Words.list) - 1))
+  let word = Words.list !! wordIndex
   hangman word guesses
-  where
-    word = ["george","pete","willy"] !! 0
-    guesses = 10
 
 -- | The start of the game.
 hangman :: String -> Int -> IO ()
