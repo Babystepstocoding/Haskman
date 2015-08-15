@@ -1,3 +1,5 @@
+module Main where
+
 import System.IO
 import Control.Monad.Trans.State.Lazy
 import Control.Monad.IO.Class
@@ -8,6 +10,16 @@ data Letter = Hidden Char | Guessed Char
 type Word = [Letter]
 -- | The state of the Hangman game. 
 data HangmanState = HangmanState Word (Int,Int) [Char]
+
+main :: IO ()
+main = do
+  hSetEcho stdin False
+  hSetBuffering stdin NoBuffering
+  hSetBuffering stdout NoBuffering
+  hangman word guesses
+  where
+    word = ["george","pete","willy"] !! 0
+    guesses = 10
 
 -- | The start of the game.
 hangman :: String -> Int -> IO ()
