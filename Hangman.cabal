@@ -14,10 +14,10 @@ category:            Game
 build-type:          Simple
 -- extra-source-files:  
 cabal-version:       >=1.10
+extra-source-files:  Tests.hs README.md
 
 executable Hangman
   main-is:             Main.hs
-  extra-source-files:  Tests.hs README.md
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.7 && <4.8, transformers == 0.4.3.*, random == 1.*
