@@ -4,7 +4,8 @@
 name:                Hangman
 version:             0.1.0.0
 synopsis:            The classic game of Hangman.
--- description:         
+description:         With a number of guesses you must figure out the hidden word!
+homepage:            https://github.com/lf94/Hangman
 license:             GPL-3
 license-file:        LICENSE
 author:              Lee Fallat
@@ -12,9 +13,8 @@ maintainer:          developer@leefallat.ca
 -- copyright:           
 category:            Game
 build-type:          Simple
--- extra-source-files:  
-cabal-version:       >=1.10
 extra-source-files:  Tests.hs README.md
+cabal-version:       >=1.10
 
 executable Hangman
   main-is:             Main.hs
