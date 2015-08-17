@@ -13,7 +13,7 @@ maintainer:          developer@leefallat.ca
 -- copyright:           
 category:            Game
 build-type:          Simple
-extra-source-files:  Tests.hs README.md
+extra-source-files:  Hangman.hs Words.hs Tests.hs README.md
 cabal-version:       >=1.10
 
 executable Hangman
