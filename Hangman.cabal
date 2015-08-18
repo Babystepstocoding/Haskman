@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                Hangman
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            The classic game of Hangman.
 description:         With a number of guesses you must figure out the hidden word!
 homepage:            https://github.com/lf94/Hangman

@@ -7,10 +7,10 @@ import Control.Monad.IO.Class
 data Letter = Hidden Char | Guessed Char
 
 -- | Represents a word made up of letters.
-type Word = [Letter]
+type AWord = [Letter]
 
 -- | The state of the Hangman game. 
-data HangmanState = HangmanState Word (Int,Int) [Char]
+data HangmanState = HangmanState AWord (Int,Int) [Char]
 
 -- | The start of the game.
 hangman :: String -> Int -> IO ()
@@ -48,7 +48,7 @@ showState (HangmanState word (guess, guesses) guessed) = do
   putStrLn $
     "Guessed:" ++ (show guessed)
 
-wordToString :: Word -> String
+wordToString :: AWord -> String
 wordToString = (fmap letterToChar)
 
 letterToChar :: Letter -> Char
@@ -63,7 +63,7 @@ checkGuess c (Hidden x)
 checkGuess c x = x
 
 -- | Determine if we've reached the end of the game.
-endGame :: Word -> (Int,Int) -> Bool
+endGame :: AWord -> (Int,Int) -> Bool
 endGame word (guess,guesses)
   | complete word = True
   | guess == guesses = True
@@ -71,7 +71,7 @@ endGame word (guess,guesses)
 
 
 -- | Determine if the word is completely guessed.
-complete :: Word -> Bool
+complete :: AWord -> Bool
 complete = all isGuessed
 
 isGuessed :: Letter -> Bool
